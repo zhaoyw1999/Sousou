@@ -1,0 +1,208 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>result - {{keywords}}</title>
+  <style media="screen">
+    body {
+      margin: 0;
+      background: url("img/bg.jpg") no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+
+    .vbox-layout {
+      box-sizing: inherit;
+      height: 100%;
+    }
+
+    .mask {
+      height: 100%;
+      background-color: white;
+      opacity: 0.8;
+    }
+
+    .head-block {
+      border-bottom: 0px solid black;
+      padding-left: 50px;
+      padding-right: 50px;
+      background-color: #fafafa;
+      box-shadow: 0.5px 0.5px 0.5px #bbbbbb;
+      margin-bottom: 20px;
+    }
+
+    .head-block-1 {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .head-block-2 {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      padding-left: 150px;
+    }
+
+    .sel-table {
+      width: 50px;
+      border-bottom: 2px solid #2f73e8;
+      padding-bottom: 10px;
+      text-align: center;
+      font-family: Times;
+      font-size: 20px;
+      color: #2f73e8;
+    }
+
+    .logo {
+      font-size: 30px;
+      text-align: center;
+      color: #696969;
+      font-family: Times;
+      margin-right: 20px;
+    }
+
+    .ref {
+      text-decoration: none;
+    }
+
+    .ref-1 {
+      text-decoration: none;
+    }
+
+    .ref:visited {
+      text-decoration: none;
+      color: #696969;
+    }
+
+    .ref-1:visited {
+      text-decoration: none;
+      color: #2f73e8;
+    }
+
+    .res {
+      padding-left: 150px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    .safe {
+      color: white;
+      background-color: #4caf50;
+      border-radius: 2px;
+      font-size: 8px;
+      padding: 2px;
+    }
+
+    .res-title {
+      color: #1e0eab;
+      font-size: 25px;
+      margin-left: 10px;
+    }
+
+    .link-div {
+      color: #076521;
+      font-size: 18px;
+      font-style: italic;
+    }
+
+    #f-input {
+      height: 35px;
+      width: 500px;
+      outline: none;
+      border: 0;
+      padding-left: 10px;
+      font-size: 25px;
+      box-shadow: 1px 1px 1px #bbbbbb;
+      margin-right: 30px;
+      border-bottom: 0px solid #e6e6e6;
+    }
+
+    #f-submit {
+      margin-left: 15px;
+      height: 40px;
+      font-size: 25px;
+      font-family: Times;
+      border-radius: 5px;
+      border: 0;
+      background-color: #e6e6e6;
+      outline: none;
+      color: white;
+    }
+
+    #f-submit:hover {
+      background-color: #696969;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="vbox-layout">
+    <!--head-->
+    <div class="head-block">
+      <div class="head-block-1">
+        <div class="logo">
+          <a href="{% url 'home' %}" class="ref">
+        Sousou&trade;
+        </a>
+        </div>
+        <div class="hbox-layout">
+          <div class="f-group">
+            <form action="index.html" method="post">
+              {% csrf_token %}
+              <input type="text" name="search-content" id="f-input" value="{{ keywords }}">
+              <button type="button" name="button" id="f-submit">submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="head-block-2">
+        <div class="sel-table">
+          <a href="#" class="ref-1">Bing</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mask">
+      <!--content-->
+      <div class="content-block">
+
+        {% for ele in reslist %}
+        <div class="res">
+          <div>
+            {% if ele.safety %}
+            <span class="safe">
+                Safe
+            </span> {% endif %}
+            <span class="res-title">
+                <a href="{{ ele.link }}">
+                {{ ele.title }}
+                </a>
+            </span>
+          </div>
+          <div class="link-div">
+            {{ ele.link }}
+          </div>
+          <div class="abs-div">
+            {{ ele.abstract }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+
+
+    </div>
+  </div>
+
+</body>
+
+</html>
